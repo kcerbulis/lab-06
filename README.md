@@ -6,26 +6,6 @@
 
 
 
-Number and name of feature: Setting up location
-
-Estimate of time needed to complete: 2h
-
-Start time: 9:50
-
-Finish time: 1:20
-
-Actual time needed to complete: 2:40
-
-
-Number and name of feature: Setting up wather
-
-Estimate of time needed to complete: 1h
-
-Start time: 1:15
-
-Finish time: 
-
-Actual time needed to complete: 
 
 
 
@@ -34,16 +14,34 @@ Actual time needed to complete:
     This app converts a location entered by the user into a latitude and longitude, then use those values to request weather information for that location.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? --> not yet availible 
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+Enter city address and it should give you the forcast
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
+    Number and name of feature: Setting up location
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.
+    Estimate of time needed to complete: 2h
+
+    Start time: 9:50
+
+    Finish time: 1:20
+
+    Actual time needed to complete: 2:40
+
+
+    Number and name of feature: Setting up wather
+
+    Estimate of time needed to complete: 1h
+
+    Start time: 1:15
+
+    Finish time: not finished
+
+Actual time needed to complete:  not finished
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+First half driver second half other way around
 -->

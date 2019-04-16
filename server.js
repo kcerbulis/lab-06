@@ -59,8 +59,17 @@ console.log(test);
 
 
 
-// --------------------Paste Here----------------------------
+app.get('/location', function(request, response){
+  response.send('seattle, wa');
+ })
+ 
+ app.use('*', (request,response) =>{
+  response.send('Hello there');
+ });
+ 
+ // Server start
+ app.listen(PORT, () =>{
+  console.log(`The port is: ${PORT}`)
+ })
 
 
-
-// --------------------Paste Here----------------------------
