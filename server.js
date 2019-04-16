@@ -12,8 +12,8 @@
  app.use(cors());
 
 
-function Location (searchQueary, formattedAddress, latitude, longitude){
-  this.search_queary = searchQueary;
+function Location (query, formattedAddress, latitude, longitude){
+  this.search_query = query;
   this.formatted_address = formattedAddress;
   this.lat = latitude;
   this.lng = longitude;
@@ -23,28 +23,44 @@ let test = new Location ('Seattle', 'Seattle, WA', '234567', '1234');
 console.log(test);
 
 
- // What the server does
+
  app.get('/location', (request,response) =>{
-   const testData = require('./data/geo.json')
-   response.send(testData);
-   const responseObject = {search_queary, formatted_query, latitude, longitude};
-   // const formatted_query = testData.results[0].geometry.location
-   // console.log(formatted_query);
- })
+     //gets front end data
+    const search_query = 'frontEndQuery';
+    //gets other data
+    const testData = require('./data/geo.json');
+    const formatted_query = testData.results[0].formatted_address;
+    console.log(formatted_query);
+    const lattitude = testData.results[0].geometry.location.lat;
+    const longtitude = testData.results[0].geometry.location.lng;
+    const responseObject = {search_query, formatted_query, lattitude, longtitude};
+    response.send(responseObject);
+    return responseObject;
+  });
+
+
+// Working on getting the weather to work. Code still in progress
+
+
+  // app.get('/weather', (request,response) =>{
+  //     //gets front end data
+  //    const search_query = 'frontEndQuery';
+  //    //gets other data
+  //    const testData = require('./data/darksky.json');
+  //
+  //    for(let i = 0; i < Object.value(testData).length; i++)
+  //      if (testData[i].latitude === lattitude && testData[i].longtitude === longtitude){
+  //       const forecast  =  testData[i].summary
+  //      }
+  //
+  //  });
 
 
 
 
-// What the server does
-app.get('/location', function(request, response){
-  response.send('seattle, wa');
-})
 
-app.use('*', (request,response) =>{
-  response.send('Hello there');
-});
+// --------------------Paste Here----------------------------
 
-// Server start
-app.listen(PORT, () =>{
-  console.log(`The port is: ${PORT}`)
-})
+
+
+// --------------------Paste Here----------------------------

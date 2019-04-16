@@ -6,15 +6,26 @@
 
 
 
-Number and name of feature: Setting up Server.js Day 1
+Number and name of feature: Setting up location
 
 Estimate of time needed to complete: 2h
 
 Start time: 9:50
 
-Finish time: _____
+Finish time: 1:20
 
-Actual time needed to complete: _____
+Actual time needed to complete: 2:40
+
+
+Number and name of feature: Setting up wather
+
+Estimate of time needed to complete: 1h
+
+Start time: 1:15
+
+Finish time: 
+
+Actual time needed to complete: 
 
 
 
