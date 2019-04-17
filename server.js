@@ -1,75 +1,93 @@
- 'use strict';
+'use strict';
 
- require('dotenv').config();
+// immediate import and configuration
+require('dotenv').config();
 
-// Global Constants
- const PORT = process.env.PORT || 3000;
- const express = require('express');
- const cors = require('cors');
+// global constants
+const PORT = process.env.PORT || 3000 ;
+const express = require('express');
+const cors = require('cors');
 
- // Server Definitions
- const app = express();
- app.use(cors());
+// server definition
+const app = express();
+app.use(cors());
+
+// what the server does
+//the route
+//request = data from query. example, from a front end query
+//can test in localhost:3000/location to verify
+app.get('/location', (request, response) => {
+  if(request.query.data !== 'lynnwood'){
+    response.status(500).send('yo, i only got the lynwood data')
+  }
+  response.send( searchLatLng(request.query.data) );
+  // response.send({
+  //   'search_query': 'seattle',
+  //   'formatted_query': 'Seattle, WA, USA',
+  //   'latitude': '47.606210',
+  //   'longitude': '-122.332071'
+  // })
+})
+
+app.get('/weather', (request, response) =>{
+  const finalArrayOfWeather = [];
+  // get the data
+  const weatherJSON = require('./data/darksky.json');
+
+  const dailyWeather = weatherJSON.daily;
+  const dailyWeatherData = dailyWeather.data;
+
+  dailyWeatherData.forEach(dayObj => {
+    finalArrayOfWeather.push(new DailyWeather(dayObj));
+  })
+
+  response.send(finalArrayOfWeather);
+})
+
+app.use('*', (request, response) => {
+  response.send('Our server runs.');
+})
 
 
-function Location (query, formattedAddress, latitude, longitude){
-  this.search_query = query;
-  this.formatted_address = formattedAddress;
-  this.lat = latitude;
-  this.lng = longitude;
+// ==============================================
+// Helper Functions
+// ==============================================
+
+function DailyWeather(rawDayObj){
+
+
+  this.forecast = rawDayObj.summary;
+  this.time = new Date (rawDayObj.time * 1000).toString().slice(0, 15);
 }
 
-let test = new Location ('Seattle', 'Seattle, WA', '234567', '1234');
-console.log(test);
+function searchLatLng(frontEndQuery) {
+  /*
+  'search_query': 'seattle',
+  //   'formatted_query': 'Seattle, WA, USA',
+  //   'latitude': '47.606210',
+  //   'longitude': '-122.332071'
+  */
+  // take the data from the front end, as the searched for location ('berlin')
+  const search_query = frontEndQuery;
 
+  // Go out and get data, tomorrow
+  const testData = require('./data/geo.json'); // go get some other data
 
+  const formatted_query = testData.results[0].formatted_address;
+  const results = testData.results;
+  const oneResult = results[0];
+  const geometry = oneResult.geometry;
+  const location = geometry.location;
+  const latitude = location.lat;
+  const longitude = location.lng;
 
- app.get('/location', (request,response) =>{
-     //gets front end data
-    const search_query = 'frontEndQuery';
-    //gets other data
-    const testData = require('./data/geo.json');
-    const formatted_query = testData.results[0].formatted_address;
-    console.log(formatted_query);
-    const lattitude = testData.results[0].geometry.location.lat;
-    const longtitude = testData.results[0].geometry.location.lng;
-    const responseObject = {search_query, formatted_query, lattitude, longtitude};
-    response.send(responseObject);
-    return responseObject;
-  });
+  const responseObject = { search_query, formatted_query, latitude, longitude };
+  console.log(responseObject);
+  return responseObject;
 
+}
 
-// Working on getting the weather to work. Code still in progress
-
-
-  // app.get('/weather', (request,response) =>{
-  //     //gets front end data
-  //    const search_query = 'frontEndQuery';
-  //    //gets other data
-  //    const testData = require('./data/darksky.json');
-  //
-  //    for(let i = 0; i < Object.value(testData).length; i++)
-  //      if (testData[i].latitude === lattitude && testData[i].longtitude === longtitude){
-  //       const forecast  =  testData[i].summary
-  //      }
-  //
-  //  });
-
-
-
-
-
-app.get('/location', function(request, response){
-  response.send('seattle, wa');
- })
- 
- app.use('*', (request,response) =>{
-  response.send('Hello there');
- });
- 
- // Server start
- app.listen(PORT, () =>{
-  console.log(`The port is: ${PORT}`)
- })
-
-
+//server start
+app.listen(PORT, ()=> {
+  console.log(`app is up on PORT ${PORT}`)
+})
